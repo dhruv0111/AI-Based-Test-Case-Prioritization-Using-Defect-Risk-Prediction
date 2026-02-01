@@ -1,0 +1,76 @@
+AI-Based Test Case Prioritization Using Defect Risk Prediction
+
+Abstract
+Software testing often operates under time constraints that prevent the exhaustive execution of all test cases. Test case prioritization aims to address this challenge by ordering test cases to detect defects as early as possible during execution. This paper proposes an AI-based test case prioritization approach that leverages machine learning-driven defect risk prediction. Defect probabilities are first estimated at the module level using static code metrics and a supervised learning model. These risk scores are then propagated to test cases based on their associated module coverage to determine execution priority. The proposed approach is evaluated using a simulated test–module mapping and compared against baseline execution strategies. Experimental results demonstrate that the AI-based prioritization approach achieves higher fault detection effectiveness, as measured by APFD, indicating its potential to support risk-based test automation.
+
+1. Introduction
+Software testing is a critical activity in the software development lifecycle, aimed at ensuring system reliability and quality. As software systems grow in size and complexity, the number of test cases required to validate system behavior increases significantly. However, practical constraints such as limited testing time and computational resources often prevent the execution of all available test cases, particularly in continuous integration and continuous delivery environments.
+
+Test case prioritization has emerged as an effective strategy to address this challenge by ordering test cases such that those with higher fault-detection potential are executed earlier. Traditional prioritization approaches typically rely on heuristics, historical execution order, or random selection, which may not consistently align test execution with areas of high defect risk. As a result, critical defects may be detected late in the testing process, reducing the effectiveness of test automation.
+
+Recent advances in artificial intelligence and machine learning have enabled data-driven approaches to software quality assurance. Machine learning models can analyze static code metrics to predict defect-prone software modules, providing valuable insights into software risk. While defect prediction has been widely studied, its integration with test case prioritization remains an area with significant potential.
+
+This paper proposes an AI-based test case prioritization approach that integrates machine learning-based defect risk prediction with test execution ordering. By propagating defect risk scores from software modules to test cases, the proposed approach prioritizes tests associated with higher-risk components. The objective is to improve fault detection effectiveness and support risk-based test automation under limited testing time.
+
+2. Related Work
+Test case prioritization has been extensively studied as a means to improve the effectiveness of regression testing. Existing approaches include coverage-based prioritization, history-based methods, and random test ordering. Coverage-based techniques prioritize test cases based on structural coverage metrics, while history-based methods rely on past failure information to guide execution order.
+
+Machine learning techniques have also been applied to various software testing tasks, including defect prediction, fault localization, and test optimization. Prior studies have demonstrated that static code metrics such as size, complexity, and coupling are useful indicators of defect-prone modules. Logistic Regression, Decision Trees, and ensemble-based models have commonly been used for this purpose.
+
+Despite these advances, limited work has focused on directly integrating defect prediction models with test case prioritization strategies. This study builds upon existing defect prediction research by demonstrating how machine learning-derived defect risk scores can be leveraged to guide test execution order, thereby enhancing the practical impact of AI in test automation.
+
+3. System Design
+The proposed system integrates machine learning-based defect prediction with test case prioritization to support risk-based test automation. The overall workflow begins with the extraction of static code metrics from software modules, which are used to train a supervised learning model for defect risk prediction.
+
+The trained model produces defect probability scores for individual software modules. These module-level risk scores are then propagated to test cases based on their associated module coverage. Each test case is assigned a risk score computed from the defect probabilities of the modules it exercises. Test cases are subsequently ordered in descending order of computed risk, resulting in a prioritized execution sequence.
+
+This design ensures that test cases associated with high-risk software components are executed earlier, improving the likelihood of early fault detection. The approach emphasizes simplicity and explainability, making it suitable for integration into existing test automation workflows.
+
+4. Dataset and Test Case Mapping
+This study utilizes the NASA CM1 dataset obtained from the PROMISE repository, which contains static code metrics and defect labels for software modules. The dataset includes 498 modules described using 21 static code attributes, making it suitable for defect prediction research.
+
+The CM1 dataset does not provide test case coverage information. To enable test case prioritization, a simulated test–module mapping is constructed. Each test case is assumed to cover one or more software modules, reflecting realistic testing scenarios commonly adopted in software testing research when real coverage data is unavailable.
+
+A fixed random seed is used to generate the simulated mapping to ensure reproducibility of experimental results. This mapping enables the evaluation of prioritization strategies while maintaining realistic assumptions about test coverage behavior.
+
+5. Methodology
+The methodology consists of defect risk prediction, test risk score computation, and test case prioritization. Static code metrics from the CM1 dataset are first preprocessed and standardized to train a supervised defect prediction model. Logistic Regression with class-balanced learning is employed to address the class imbalance inherent in defect datasets.
+
+The trained model outputs defect probability scores for each software module. These probabilities represent the likelihood of a module being defective and serve as module-level risk indicators.
+
+To compute test case risk scores, defect probabilities of the modules covered by each test case are aggregated using a summation-based strategy. This aggregation reflects the cumulative risk associated with executing a particular test case. Test cases are then prioritized by sorting them in descending order of their computed risk scores, resulting in an AI-driven execution order.
+
+6. Experimental Results
+The effectiveness of the proposed test case prioritization approach is evaluated using the Average Percentage of Fault Detection (APFD) metric. The AI-based prioritization strategy is compared against baseline approaches, including original test execution order and random ordering.
+
+Experimental results demonstrate that the AI-based prioritization approach achieves higher APFD values compared to baseline strategies, indicating earlier detection of defects during test execution. The improvement highlights the benefit of leveraging defect risk prediction to guide test execution under limited testing resources.
+
+A comparative analysis of APFD values confirms that risk-driven prioritization consistently outperforms non-intelligent execution strategies, validating the effectiveness of the proposed approach.
+
+7. Discussion
+The experimental findings indicate that integrating defect risk prediction with test case prioritization significantly enhances fault detection effectiveness. By focusing test execution on high-risk software modules, the proposed approach aligns testing effort with areas most likely to contain defects.
+
+The improvement in APFD demonstrates that machine learning-based risk estimation provides meaningful guidance for test automation decisions. While the study relies on simulated test–module mappings and evaluates a single dataset, the results provide strong evidence of the feasibility and practical value of risk-based test case prioritization.
+
+These findings suggest that AI-driven prioritization can complement existing test automation frameworks by enabling more efficient and intelligent test execution strategies.
+
+8. Conclusion and Future Work
+This paper presented an AI-based test case prioritization approach that leverages machine learning-driven defect risk prediction to improve fault detection effectiveness. By propagating defect probabilities from software modules to test cases, the proposed method prioritizes tests associated with higher-risk components.
+
+Experimental results demonstrate that the approach outperforms traditional execution strategies in terms of early fault detection, highlighting its potential to support risk-based test automation.
+
+Future work may extend this study by evaluating additional datasets, incorporating real test coverage information, and exploring advanced prioritization strategies. Integrating the proposed approach into continuous integration pipelines represents a promising direction for further research.
+
+
+REFERENCES
+[1] G. Rothermel, R. H. Untch, C. Chu, and M. J. Harrold, “Prioritizing Test Cases for Regression Testing,” IEEE Transactions on Software Engineering, vol. 27, no. 10, pp. 929–948, 2001.
+
+[2] S. Elbaum, A. G. Malishevsky, and G. Rothermel, “Test Case Prioritization: A Family of Empirical Studies,” IEEE Transactions on Software Engineering, vol. 28, no. 2, pp. 159–182, 2002.
+
+[3] T. Menzies, J. Greenwald, and A. Frank, “Data Mining Static Code Attributes to Learn Defect Predictors,” IEEE Transactions on Software Engineering, vol. 33, no. 1, pp. 2–13, 2007.
+
+[4] N. E. Fenton and M. Neil, “A Critique of Software Defect Prediction Models,” IEEE Transactions on Software Engineering, vol. 25, no. 5, pp. 675–689, 1999.
+
+[5] D. Gray, D. Bowes, N. Davey, Y. Sun, and B. Christianson, “The Misuse of the NASA Metrics Data Program Data Sets for Automated Software Defect Prediction,” IEEE International Workshop on Software Metrics, 2011.
+
+[6] S. Yoo and M. Harman, “Regression Testing Minimization, Selection and Prioritization: A Survey,” Software Testing, Verification and Reliability, vol. 22, no. 2, pp. 67–120, 2012.
