@@ -4,7 +4,7 @@ This repository contains the implementation and experiments for the research pro
 
 **AI-Based Test Case Prioritization Using Defect Risk Prediction**
 
-📄 Project 2 Preprint (Zenodo DOI): <PASTE_ZENODO_LINK_AFTER_UPLOAD>  
+📄 Project 2 Preprint (Zenodo DOI): https://zenodo.org/records/18450817
 📄 Related Work (Project 1): Software Defect Prediction Using Machine Learning
 
 
